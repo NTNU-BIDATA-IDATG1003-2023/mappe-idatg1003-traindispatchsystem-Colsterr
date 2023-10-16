@@ -11,6 +11,8 @@ public class TrainDeparture {
     private String destination; //desinasjon for toget
     private LocalTime delay; // Eventuell forsinkelse
 
+    private String platform; // Eventuell forsinkelse
+
     // Konstruktør og andre metoder for å opprette og manipulere TrainDeparture-objekter
     public TrainDeparture(LocalTime departureTime, String line, String trainNumber, String destination, LocalTime delay) {
         this.departureTime = departureTime;
@@ -31,6 +33,16 @@ public class TrainDeparture {
         if (delay != null && delay.isBefore(LocalTime.MIDNIGHT)) {
             throw new IllegalArgumentException("Ugyldig forsinkelse: " + delay);
         }
+    }
+
+    // Metode for å sette plattform for avgangen
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    // Metode for å hente plattformen for avgangen
+    public String getPlatform() {
+        return platform;
     }
 
 
@@ -141,6 +153,16 @@ public class TrainDeparture {
 
         // Hvis ingen duplikat ble funnet, legg til den nye avgangen i listen
         departures.add(newDeparture);
+    }
+
+    // Metode for å sjekke om et tog med samme tognummer allerede eksisterer i listen
+    private static boolean containsTrainWithNumber(List<TrainDeparture> departures, String trainNumber) {
+        for (TrainDeparture departure : departures) {
+            if (departure.getTrainNumber().equals(trainNumber)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
