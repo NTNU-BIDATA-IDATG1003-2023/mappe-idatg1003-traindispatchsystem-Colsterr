@@ -35,6 +35,13 @@ public class TrainDispatchApp {
         List<TrainDeparture> searchResults = TrainDeparture.searchByTrainNumber(departures, "123");
 
         //Display and sort Trains
+        for (TrainDeparture departure : departures) {
+            System.out.println(departure.toString());
+        }
+
+        //Creating a TimeUpdate instance and update the time
+        TimeUpdate timeUpdater = new TimeUpdate(LocalTime.now());
+        timeUpdater.updateCurrentTime();
     }
 
 }
