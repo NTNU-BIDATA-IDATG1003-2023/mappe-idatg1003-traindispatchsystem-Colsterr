@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import edu.ntnu.stud.TrainDelayManager;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -21,13 +22,15 @@ public class TrainDispatchApp {
             System.out.println("2. Assign Platform to Departure");
             System.out.println("3. Display All Departures");
             System.out.println("4. Exit");
+            System.out.println("5. Add delay");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
+            String trainNumberToAddDelay = ""; // Flytt deklarasjonen utenfor switch-blokken
 
             switch (choice) {
                 case 1:
-                    // Add Train Departure
+                    //Add Train Departure
                     System.out.print("Enter departure time (HH:mm): ");
                     String timeInput = scanner.next();
                     LocalTime departureTime = LocalTime.parse(timeInput, DateTimeFormatter.ofPattern("HH:mm"));
@@ -41,7 +44,7 @@ public class TrainDispatchApp {
                     System.out.print("Enter destination: ");
                     String destination = scanner.next();
 
-                    System.out.print("Enter delay (HH:mm) or press Enter for no delay: ");
+                    /*System.out.print("Enter delay (HH:mm) or press Enter for no delay: ");
                     String delayInput = scanner.next();
                     LocalTime delay = delayInput.isEmpty() ? null : LocalTime.parse(delayInput, DateTimeFormatter.ofPattern("HH:mm"));
 
@@ -49,8 +52,10 @@ public class TrainDispatchApp {
                     TrainDeparture.addTrainDeparture(departures, newDeparture);
                     break;
 
+                     */
+
                 case 2:
-                    // Assign Platform to Departure
+                    //  Assign Platform to Departure
                     System.out.print("Enter train number to assign a platform: ");
                     String trainNumberToAssignPlatform = scanner.next();
 
@@ -66,7 +71,7 @@ public class TrainDispatchApp {
                     break;
 
                 case 3:
-                    // Display All Departures
+                    // Displa All Departures
                     for (TrainDeparture departure : departures) {
                         System.out.println(departure.toString());
                     }
@@ -77,15 +82,35 @@ public class TrainDispatchApp {
                     scanner.close();
                     System.exit(0);
 
+                case 5:
+                    // Add delay to Departure
+                    System.out.print("Enter train number to add delay: ");
+                    trainNumberToAddDelay = scanner.next(); // Flytt denne deklarasjonen hit
+
+                    System.out.print("Enter delay (HH:mm) or press Enter for no delay: ");
+                    String delayInput = scanner.next();
+                    LocalTime delayToAdd = delayInput.isEmpty() ? null : LocalTime.parse(delayInput, DateTimeFormatter.ofPattern("HH:mm"));
+
+                    try {
+                        TrainDelayManager.addDelay(departures, trainNumberToAddDelay, delayToAdd);
+                        System.out.println("Delay added successfully.");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
+
+
+
 
             // Create train departures
             TrainDeparture departure1 = new TrainDeparture(LocalTime.of(10, 0), "Line A", "123", "Station X", null);
             TrainDeparture departure2 = new TrainDeparture(LocalTime.of(9, 30), "Line B", "456", "Station Y", LocalTime.of(0, 15));
 
-            // Add them to the list
+            //Add them to the list
             departures.add(departure1);
             departures.add(departure2);
 
