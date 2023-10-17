@@ -6,16 +6,17 @@ import java.util.List;
 
 public class TrainDeparture {
     private LocalTime departureTime; //Avgangstidspunkt for toget
+    private int track; // track som toget tilhører, -1 hvis ikke tilordnet
     private String line; // Linjen gtoget tilhører
     private String trainNumber; // Tognummeret
     private String destination; //desinasjon for toget
     private LocalTime delay; // Eventuell forsinkelse
-
     private String platform; // Eventuell forsinkelse
 
     // Konstruktør og andre metoder for å opprette og manipulere TrainDeparture-objekter
-    public TrainDeparture(LocalTime departureTime, String line, String trainNumber, String destination, LocalTime delay) {
+    public TrainDeparture(LocalTime departureTime,int track, String line, String trainNumber, String destination, LocalTime delay) {
         this.departureTime = departureTime;
+        this.track = track;
         this.line = line;
         this.trainNumber = trainNumber;
         this.destination = destination;
@@ -99,9 +100,14 @@ public class TrainDeparture {
         this.departureTime = departureTime;
     }
 
-    // Getter for linje
-    public String getLine() {
-        return line;
+    // Getter for Track
+    public int getTrack() {
+        return track;
+    }
+
+    // Setter for track
+    public void setTrack(int track) {
+        this.track = track;
     }
 
     // Setter for linje
@@ -167,9 +173,8 @@ public class TrainDeparture {
 
     @Override
     public String toString() {
-        // Implementer toString-metoden for å representere togavgangen som en tekststreng
         return "Departure Time: " + departureTime +
-                ", Line: " + line +
+                ", Track: " + (track == -1 ? "Not assigned" : track) +
                 ", Train Number: " + trainNumber +
                 ", Destination: " + destination +
                 ", Delay: " + delay;
@@ -177,12 +182,13 @@ public class TrainDeparture {
 
     //Metode forå skrive ut informasjon om togavgangen til konsollen
     public void printDepartureInfo() {
-        System.out.println("Departure Information:");
-        System.out.println("Departure Time: " + departureTime);
-        System.out.println("Line: " + line);
-        System.out.println("Train Number: " + trainNumber);
-        System.out.println("Destination: " + destination);
-        System.out.println("Delay: " + delay);
+            System.out.println("Departure Information:");
+            System.out.println("Departure Time: " + departureTime);
+            System.out.println("Track: " + (track == -1 ? "Not assigned" : track));
+            System.out.println("Train Number: " + trainNumber);
+            System.out.println("Destination: " + destination);
+            System.out.println("Delay: " + delay);
+            System.out.println("Platform: " + platform);
     }
 }
 

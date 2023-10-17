@@ -107,8 +107,8 @@ public class TrainDispatchApp {
 
 
             // Create train departures
-            TrainDeparture departure1 = new TrainDeparture(LocalTime.of(10, 0), "Line A", "123", "Station X", null);
-            TrainDeparture departure2 = new TrainDeparture(LocalTime.of(9, 30), "Line B", "456", "Station Y", LocalTime.of(0, 15));
+            TrainDeparture departure1 = new TrainDeparture(LocalTime.of(10, 0), 1,"F1", "111", "Gjøvik", null);
+            TrainDeparture departure2 = new TrainDeparture(LocalTime.of(9, 30), 2, "F4", "444","Oslo s" ,LocalTime.of(00, 15));
 
             //Add them to the list
             departures.add(departure1);
