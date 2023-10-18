@@ -60,13 +60,17 @@ public class TrainDeparture {
 
     @Override
     public String toString() {
+        String delayString = (delay != null && !delay.equals(LocalTime.MIDNIGHT)) ? delay.toString() : "No delay";
+
         return "Departure Time: " + departureTime +
                 ", Track: " + (track == -1 ? "Not assigned" : track) +
                 ", Line: " + line +
                 ", Train Number: " + trainNumber +
                 ", Destination: " + destination +
-                ", Delay: " + (delay != null ? delay : "No delay") +
+                ", Delay: " + delayString +
                 ", Platform: " + (platform != null ? platform : "Not assigned");
     }
+
+
 
 }
