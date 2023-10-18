@@ -1,6 +1,5 @@
 package edu.ntnu.stud;
 
-import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -12,9 +11,7 @@ public class TimeUpdate {
         this.currentTime = initialTime;
     }
 
-    public void updateCurrentTime() {
-        Scanner scanner = new Scanner(System.in);
-
+    public void updateCurrentTime(Scanner scanner) {
         System.out.println("Nåværende tidspunkt: " + currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
         System.out.print("Skriv inn det nye tidspunktet (format: HH:mm): ");
 
@@ -28,4 +25,3 @@ public class TimeUpdate {
     }
 
 }
-

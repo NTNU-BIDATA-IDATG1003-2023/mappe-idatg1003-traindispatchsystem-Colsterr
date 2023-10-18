@@ -2,6 +2,7 @@ package edu.ntnu.stud;
 
 import java.util.List;
 
+
 public class TrainPlatformAllocator {
     public static void assignPlatform(List<TrainDeparture> departures, String trainNumber, String platform) {
         // Søk etter avgangen basert på tognummer
@@ -25,4 +26,6 @@ public class TrainPlatformAllocator {
         departureToAssignPlatform.setPlatform(platform);
     }
 }
+
+
 

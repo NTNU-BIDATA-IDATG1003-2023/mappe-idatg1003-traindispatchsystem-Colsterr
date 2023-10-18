@@ -1,143 +1,132 @@
 package edu.ntnu.stud;
-
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-import edu.ntnu.stud.TrainDelayManager;
-import java.time.format.DateTimeFormatter;
 
-/**
- * This is the main class for the train dispatch application.
- */
 public class TrainDispatchApp {
-    // TODO: Fill in the main method and any other methods you need.
     public static void main(String[] args) {
         List<TrainDeparture> departures = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
+
+        TimeUpdate timeUpdater = new TimeUpdate(LocalTime.now());
 
         while (true) {
             System.out.println("Train Departure Menu:");
             System.out.println("1. Add Train Departure");
             System.out.println("2. Assign Platform to Departure");
             System.out.println("3. Display All Departures");
-            System.out.println("4. Exit");
-            System.out.println("5. Add delay");
+            System.out.println("4. Add Delay to Departure");
+            System.out.println("5. Update current time");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-            String trainNumberToAddDelay = ""; // Flytt deklarasjonen utenfor switch-blokken
 
             switch (choice) {
                 case 1:
-                    //Add Train Departure
-                    System.out.print("Enter departure time (HH:mm): ");
-                    String timeInput = scanner.next();
-                    LocalTime departureTime = LocalTime.parse(timeInput, DateTimeFormatter.ofPattern("HH:mm"));
-
-                    System.out.print("Enter line: ");
-                    String line = scanner.next();
-
-                    System.out.print("Enter train number: ");
-                    String trainNumber = scanner.next();
-
-                    System.out.print("Enter destination: ");
-                    String destination = scanner.next();
-
-                    /*System.out.print("Enter delay (HH:mm) or press Enter for no delay: ");
-                    String delayInput = scanner.next();
-                    LocalTime delay = delayInput.isEmpty() ? null : LocalTime.parse(delayInput, DateTimeFormatter.ofPattern("HH:mm"));
-
-                    TrainDeparture newDeparture = new TrainDeparture(departureTime, line, trainNumber, destination, delay);
-                    TrainDeparture.addTrainDeparture(departures, newDeparture);
+                    addTrainDeparture(scanner, departures);
                     break;
 
-                     */
-
                 case 2:
-                    //  Assign Platform to Departure
-                    System.out.print("Enter train number to assign a platform: ");
-                    String trainNumberToAssignPlatform = scanner.next();
-
-                    System.out.print("Enter platform: ");
-                    String platform = scanner.next();
-
-                    try {
-                        TrainPlatformAllocator.assignPlatform(departures, trainNumberToAssignPlatform, platform);
-                        System.out.println("Platform assigned successfully.");
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
+                    assignPlatform(scanner, departures);
                     break;
 
                 case 3:
-                    // Displa All Departures
-                    for (TrainDeparture departure : departures) {
-                        System.out.println(departure.toString());
-                    }
+                    displayAllDepartures(departures);
                     break;
 
                 case 4:
-                    // Exit
+                    addDelayToDeparture(scanner, departures);
+                    break;
+
+                case 5:
+                    updateCurrentTime(scanner, timeUpdater);
+                    break;
+
+                case 6:
                     scanner.close();
                     System.exit(0);
 
-                case 5:
-                    // Add delay to Departure
-                    System.out.print("Enter train number to add delay: ");
-                    trainNumberToAddDelay = scanner.next(); // Flytt denne deklarasjonen hit
 
-                    System.out.print("Enter delay (HH:mm) or press Enter for no delay: ");
-                    String delayInput = scanner.next();
-                    LocalTime delayToAdd = delayInput.isEmpty() ? null : LocalTime.parse(delayInput, DateTimeFormatter.ofPattern("HH:mm"));
-
-                    try {
-                        TrainDelayManager.addDelay(departures, trainNumberToAddDelay, delayToAdd);
-                        System.out.println("Delay added successfully.");
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
 
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
+        }
+    }
 
+    private static void addTrainDeparture(Scanner scanner, List<TrainDeparture> departures) {
+        System.out.print("Enter departure time (HH:mm): ");
+        String timeInput = scanner.next();
+        LocalTime departureTime = LocalTime.parse(timeInput, DateTimeFormatter.ofPattern("HH:mm"));
 
+        System.out.print("Enter track: ");
+        int track = scanner.nextInt();
 
+        System.out.print("Enter line: ");
+        String line = scanner.next();
 
-            // Create train departures
-            TrainDeparture departure1 = new TrainDeparture(LocalTime.of(10, 0), 1,"F1", "111", "Gjøvik", null);
-            TrainDeparture departure2 = new TrainDeparture(LocalTime.of(9, 30), 2, "F4", "444","Oslo s" ,LocalTime.of(00, 15));
+        System.out.print("Enter train number: ");
+        String trainNumber = scanner.next();
 
-            //Add them to the list
-            departures.add(departure1);
-            departures.add(departure2);
+        System.out.print("Enter destination: ");
+        String destination = scanner.next();
 
-            // You can add more departures as needed
+        System.out.print("Enter delay (HH:mm) or press Enter for no delay: ");
+        String delayInput = scanner.next();
+        LocalTime delay = delayInput.isEmpty() ? null : LocalTime.parse(delayInput, DateTimeFormatter.ofPattern("HH:mm"));
 
-            //Validate data
-            departure1.validateData();
+        TrainDeparture newDeparture = new TrainDeparture(departureTime, track, line, trainNumber, destination, delay);
+        TrainDeparture.addTrainDeparture(departures, newDeparture);
+        System.out.println("Train departure added successfully.");
+    }
 
-            //Add a delay to a departure
-            departure1.addDelay(LocalTime.of(0, 10));
+    private static void assignPlatform(Scanner scanner, List<TrainDeparture> departures) {
+        System.out.print("Enter train number to assign a platform: ");
+        String trainNumberToAssignPlatform = scanner.next();
 
-            // Remove the Delay from a departure
-            departure1.removeDelay();
+        System.out.print("Enter platform: ");
+        String platform = scanner.next();
 
-            //Search for departures by train number or destination
-            List<TrainDeparture> searchResults = TrainDeparture.searchByTrainNumber(departures, "123");
+        try {
+            TrainPlatformAllocator.assignPlatform(departures, trainNumberToAssignPlatform, platform);
+            System.out.println("Platform assigned successfully.");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-            //Display and sort Trains
+    private static void displayAllDepartures(List<TrainDeparture> departures) {
+        if (departures.isEmpty()) {
+            System.out.println("No departures to display.");
+        } else {
+            Collections.sort(departures, new TrainDepartureComparator());
             for (TrainDeparture departure : departures) {
                 System.out.println(departure.toString());
             }
-
-            //Creating a TimeUpdate instance and update the time
-            TimeUpdate timeUpdater = new TimeUpdate(LocalTime.now());
-            timeUpdater.updateCurrentTime();
         }
-
     }
-}
 
+    private static void addDelayToDeparture(Scanner scanner, List<TrainDeparture> departures) {
+        System.out.print("Enter train number to add delay: ");
+        String trainNumberToAddDelay = scanner.next();
+
+        System.out.print("Enter delay (HH:mm) or press Enter for no delay: ");
+        String delayInput = scanner.next();
+        LocalTime delayToAdd = delayInput.isEmpty() ? null : LocalTime.parse(delayInput, DateTimeFormatter.ofPattern("HH:mm"));
+
+        try {
+            TrainDelayManager.addDelay(departures, trainNumberToAddDelay, delayToAdd);
+            System.out.println("Delay added successfully.");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    private static void updateCurrentTime(Scanner scanner, TimeUpdate timeUpdater) {
+        timeUpdater.updateCurrentTime(scanner);
+    }
+
+}
