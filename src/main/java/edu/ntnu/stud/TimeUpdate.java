@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class TimeUpdate {
-    private LocalTime currentTime;
+    LocalTime currentTime;
 
     public TimeUpdate(LocalTime initialTime) {
         this.currentTime = initialTime;

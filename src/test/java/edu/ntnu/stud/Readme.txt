@@ -1,3 +1,4 @@
+
 Alle klassene som er testklasser (JUnit test klasser) plasserer du har.
 Pass på at du har en testklasse for hver klasse du har laget.
 Hver testklasse skal ha en testmetode for hver positive og negative test du ønsker å utføre på klassen.
