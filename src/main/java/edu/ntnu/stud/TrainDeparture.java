@@ -31,6 +31,12 @@ public class TrainDeparture {
         return platform;
     }
 
+    public String getDestination() {
+        return destination; // Endre metoden for å returnere destinasjonen
+    }
+
+
+
     public void addDelay(LocalTime delay) {
         if (delay == null || delay.equals(LocalTime.of(0, 0))) {
             throw new IllegalArgumentException("Ugyldig forsinkelse: " + delay);
