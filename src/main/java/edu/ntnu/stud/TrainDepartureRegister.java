@@ -13,10 +13,10 @@ public class TrainDepartureRegister {
     }
 
     public void addTrainDeparture(TrainDeparture newDeparture) {
-        if (!containsTrainWithNumber(newDeparture.getTrainNumber())) {
-            departures.add(newDeparture);
-        }
+        departures.add(newDeparture);
     }
+
+
 
     public TrainDeparture findTrainByTrainNumber(String trainNumber) {
         for (TrainDeparture departure : departures) {

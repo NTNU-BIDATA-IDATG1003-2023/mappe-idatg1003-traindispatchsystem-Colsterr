@@ -53,6 +53,7 @@ public class TrainDeparture {
         return trainNumber;
     }
 
+
     public static void addTrainDeparture(List<TrainDeparture> departures, TrainDeparture newDeparture) {
         if (containsTrainWithNumber(departures, newDeparture.getTrainNumber())) {
             throw new IllegalArgumentException("Tog med samme tognummer finnes allerede i listen.");
@@ -63,6 +64,8 @@ public class TrainDeparture {
     private static boolean containsTrainWithNumber(List<TrainDeparture> departures, String trainNumber) {
         return departures.stream().anyMatch(departure -> departure.getTrainNumber().equals(trainNumber));
     }
+
+
 
     @Override
     public String toString() {
