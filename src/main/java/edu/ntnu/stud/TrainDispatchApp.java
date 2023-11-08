@@ -21,7 +21,8 @@ public class TrainDispatchApp {
             System.out.println("4. Add Delay to Departure");
             System.out.println("5. Update current time");
             System.out.println("6. Find train by train number");
-            System.out.println("7. Exit");
+            System.out.println("7. Find train by destination");
+            System.out.println("8. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
@@ -52,6 +53,9 @@ public class TrainDispatchApp {
                     break;
 
                 case 7:
+                    // Create a method to find a train by destination
+
+                case 8:
                     scanner.close();
                     System.exit(0);
 
