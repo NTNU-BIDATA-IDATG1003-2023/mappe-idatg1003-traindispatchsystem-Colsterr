@@ -42,7 +42,7 @@ public class TrainDispatchApp {
                     break;
 
                 case 4:
-                    addDelayToDeparture(scanner, departures); // Implement to trainDepartureRegister
+                    addDelayToDeparture(scanner, register);
                     break;
 
                 case 5:
@@ -141,7 +141,7 @@ public class TrainDispatchApp {
     }
 
 
-    private static void addDelayToDeparture(Scanner scanner, List<TrainDeparture> departures) {
+    private static void addDelayToDeparture(Scanner scanner, TrainDepartureRegister register) {
         System.out.print("Enter train number to add delay: ");
         String trainNumberToAddDelay = scanner.next();
 
@@ -149,18 +149,23 @@ public class TrainDispatchApp {
         String delayInput = scanner.next();
         LocalTime delayToAdd = delayInput.isEmpty() ? null : LocalTime.parse(delayInput, DateTimeFormatter.ofPattern("HH:mm"));
 
-        try {
-            TrainDeparture departure = findTrainByTrainNumber(trainNumberToAddDelay, departures);
-            if (departure != null) {
-                TrainDelayManager.addDelay(departures, trainNumberToAddDelay, delayToAdd);
+        TrainDeparture departure = register.findTrainByTrainNumber(trainNumberToAddDelay);
+
+        if (departure != null) {
+            if (delayToAdd != null) {
+                departure.setDelay(delayToAdd);
                 System.out.println("Delay added successfully.");
             } else {
-                System.out.println("Train with the specified number not found.");
+                System.out.println("No delay added.");
             }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+        } else {
+            System.out.println("Train with the specified number not found.");
         }
     }
+
+
+
+
 
     // Helper method to find a train by train number
     private static TrainDeparture findTrainByTrainNumber(String trainNumber, List<TrainDeparture> departures) {

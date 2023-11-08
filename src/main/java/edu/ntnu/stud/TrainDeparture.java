@@ -1,9 +1,7 @@
 package edu.ntnu.stud;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-
 
 public class TrainDeparture {
     private LocalTime departureTime;
@@ -32,13 +30,20 @@ public class TrainDeparture {
     }
 
     public String getDestination() {
-        return destination; // Endre metoden for å returnere destinasjonen
+        return destination;
     }
 
+    public void setDelay(LocalTime delay) {
+        this.delay = delay;
+    }
+
+    public LocalTime getDelay() {
+        return delay;
+    }
 
     public void addDelay(LocalTime delay) {
         if (delay == null || delay.equals(LocalTime.of(0, 0))) {
-            throw new IllegalArgumentException("Ugyldig forsinkelse: " + delay);
+            throw new IllegalArgumentException("Invalid delay: " + delay);
         }
         departureTime = departureTime.plusHours(delay.getHour()).plusMinutes(delay.getMinute());
     }
@@ -47,15 +52,13 @@ public class TrainDeparture {
         return departureTime;
     }
 
-
     public String getTrainNumber() {
         return trainNumber;
     }
 
-
     public static void addTrainDeparture(List<TrainDeparture> departures, TrainDeparture newDeparture) {
         if (containsTrainWithNumber(departures, newDeparture.getTrainNumber())) {
-            throw new IllegalArgumentException("Tog med samme tognummer finnes allerede i listen.");
+            throw new IllegalArgumentException("Train with the same train number already exists in the list.");
         }
         departures.add(newDeparture);
     }
@@ -63,8 +66,6 @@ public class TrainDeparture {
     private static boolean containsTrainWithNumber(List<TrainDeparture> departures, String trainNumber) {
         return departures.stream().anyMatch(departure -> departure.getTrainNumber().equals(trainNumber));
     }
-
-
 
     @Override
     public String toString() {
@@ -78,7 +79,4 @@ public class TrainDeparture {
                 ", Delay: " + delayString +
                 ", Platform: " + (platform != null ? platform : "Not assigned");
     }
-
-
-
 }
