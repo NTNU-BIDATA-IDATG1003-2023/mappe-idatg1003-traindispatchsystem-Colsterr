@@ -1,5 +1,11 @@
 package edu.ntnu.stud;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,8 +21,6 @@ public class TrainDepartureRegister {
     public void addTrainDeparture(TrainDeparture newDeparture) {
         departures.add(newDeparture);
     }
-
-
 
     public TrainDeparture findTrainByTrainNumber(String trainNumber) {
         for (TrainDeparture departure : departures) {
@@ -47,6 +51,10 @@ public class TrainDepartureRegister {
         List<TrainDeparture> sortedDepartures = new ArrayList<>(departures);
         sortedDepartures.sort(new TrainDepartureComparator());
         return sortedDepartures;
+    }
+
+    public List<TrainDeparture> getDepartures() {
+        return departures;
     }
 
     private boolean containsTrainWithNumber(String trainNumber) {

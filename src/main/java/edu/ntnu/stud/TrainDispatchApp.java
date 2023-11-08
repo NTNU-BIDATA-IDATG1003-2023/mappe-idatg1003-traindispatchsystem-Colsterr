@@ -33,15 +33,16 @@ public class TrainDispatchApp {
                     break;
 
                 case 2:
-                    assignPlatform(scanner, departures);
+                    assignPlatform(scanner, register);
                     break;
+
 
                 case 3:
                     displayAllDepartures(register);
                     break;
 
                 case 4:
-                    addDelayToDeparture(scanner, departures);
+                    addDelayToDeparture(scanner, departures); // Implement to trainDepartureRegister
                     break;
 
                 case 5:
@@ -53,12 +54,12 @@ public class TrainDispatchApp {
                     break;
 
                 case 7:
-                    // Create a method to find a train by destination
+                    findDeparturesByDestination(scanner, register);
+                    break;
 
                 case 8:
                     scanner.close();
                     System.exit(0);
-
 
 
                 default:
@@ -66,6 +67,23 @@ public class TrainDispatchApp {
             }
         }
     }
+
+    private static void findDeparturesByDestination(Scanner scanner, TrainDepartureRegister register) {
+        System.out.print("Enter destination to find departures: ");
+        String destinationToFind = scanner.next();
+
+        List<TrainDeparture> departuresByDestination = register.findDeparturesByDestination(destinationToFind);
+
+        if (!departuresByDestination.isEmpty()) {
+            System.out.println("Train departures to " + destinationToFind + ":");
+            for (TrainDeparture departure : departuresByDestination) {
+                System.out.println(departure.toString());
+            }
+        } else {
+            System.out.println("No departures to " + destinationToFind + " found.");
+        }
+    }
+
 
     private static void addTrainDeparture(Scanner scanner, TrainDepartureRegister register) {
         System.out.print("Enter departure time (HH:mm): ");
@@ -94,7 +112,7 @@ public class TrainDispatchApp {
     }
 
 
-    private static void assignPlatform(Scanner scanner, List<TrainDeparture> departures) {
+    private static void assignPlatform(Scanner scanner, TrainDepartureRegister register) {
         System.out.print("Enter train number to assign a platform: ");
         String trainNumberToAssignPlatform = scanner.next();
 
@@ -102,12 +120,13 @@ public class TrainDispatchApp {
         String platform = scanner.next();
 
         try {
-            TrainPlatformAllocator.assignPlatform(departures, trainNumberToAssignPlatform, platform);
+            TrainPlatformAllocator.assignPlatform(register.getDepartures(), trainNumberToAssignPlatform, platform);
             System.out.println("Platform assigned successfully.");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
+
 
     private static void displayAllDepartures(TrainDepartureRegister register) {
         List<TrainDeparture> departures = register.getSortedDepartures();
@@ -122,7 +141,6 @@ public class TrainDispatchApp {
     }
 
 
-
     private static void addDelayToDeparture(Scanner scanner, List<TrainDeparture> departures) {
         System.out.print("Enter train number to add delay: ");
         String trainNumberToAddDelay = scanner.next();
@@ -132,12 +150,30 @@ public class TrainDispatchApp {
         LocalTime delayToAdd = delayInput.isEmpty() ? null : LocalTime.parse(delayInput, DateTimeFormatter.ofPattern("HH:mm"));
 
         try {
-            TrainDelayManager.addDelay(departures, trainNumberToAddDelay, delayToAdd);
-            System.out.println("Delay added successfully.");
+            TrainDeparture departure = findTrainByTrainNumber(trainNumberToAddDelay, departures);
+            if (departure != null) {
+                TrainDelayManager.addDelay(departures, trainNumberToAddDelay, delayToAdd);
+                System.out.println("Delay added successfully.");
+            } else {
+                System.out.println("Train with the specified number not found.");
+            }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
+
+    // Helper method to find a train by train number
+    private static TrainDeparture findTrainByTrainNumber(String trainNumber, List<TrainDeparture> departures) {
+        for (TrainDeparture departure : departures) {
+            if (departure.getTrainNumber().equals(trainNumber)) {
+                return departure;
+            }
+        }
+        return null;
+    }
+
+
+
     private static void updateCurrentTime(Scanner scanner, TimeUpdate timeUpdater) {
         timeUpdater.updateCurrentTime(scanner);
     }
