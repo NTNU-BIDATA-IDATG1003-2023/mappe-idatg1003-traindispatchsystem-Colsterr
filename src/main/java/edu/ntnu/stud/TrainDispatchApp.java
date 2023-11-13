@@ -14,6 +14,13 @@ public class TrainDispatchApp {
         TimeUpdate timeUpdater = new TimeUpdate(LocalTime.now());
 
         while (true) {
+
+            LocalTime currentTime = LocalTime.now();
+            System.out.print("\u001B[31m"); // ANSI escape code for red color
+            System.out.println("Current Time: " + currentTime.format(DateTimeFormatter.ofPattern("HH:mm")));
+            System.out.print("\u001B[0m"); // Reset color to default
+
+            //Menu options
             System.out.println("Train Departure Menu:");
             System.out.println("1. Add Train Departure");
             System.out.println("2. Assign Platform to Departure");
@@ -155,6 +162,9 @@ public class TrainDispatchApp {
             if (delayToAdd != null) {
                 departure.setDelay(delayToAdd);
                 System.out.println("Delay added successfully.");
+
+                // Add delay to departure time
+                departure.addDelay(delayToAdd);
             } else {
                 System.out.println("No delay added.");
             }
@@ -162,9 +172,6 @@ public class TrainDispatchApp {
             System.out.println("Train with the specified number not found.");
         }
     }
-
-
-
 
 
     // Helper method to find a train by train number

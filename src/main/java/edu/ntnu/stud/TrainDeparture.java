@@ -43,10 +43,13 @@ public class TrainDeparture {
 
     public void addDelay(LocalTime delay) {
         if (delay == null || delay.equals(LocalTime.of(0, 0))) {
-            throw new IllegalArgumentException("Invalid delay: " + delay);
+            throw new IllegalArgumentException("Ugyldig forsinkelse: " + delay);
         }
+        this.delay = delay;
         departureTime = departureTime.plusHours(delay.getHour()).plusMinutes(delay.getMinute());
     }
+
+
 
     public LocalTime getDepartureTime() {
         return departureTime;
