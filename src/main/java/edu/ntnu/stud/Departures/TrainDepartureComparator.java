@@ -1,4 +1,6 @@
-package edu.ntnu.stud;
+package edu.ntnu.stud.Departures;
+import edu.ntnu.stud.Departures.TrainDeparture;
+
 import java.util.Comparator;
 
 /**

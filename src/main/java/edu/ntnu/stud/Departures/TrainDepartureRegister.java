@@ -1,10 +1,7 @@
-package edu.ntnu.stud;
+package edu.ntnu.stud.Departures;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
+import edu.ntnu.stud.Departures.TrainDeparture;
+import edu.ntnu.stud.Departures.TrainDepartureComparator;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,11 +1,11 @@
-package edu.ntnu.stud;
+package edu.ntnu.stud.Clock;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class TimeUpdate {
-    LocalTime currentTime;
+    public LocalTime currentTime;
 
     public TimeUpdate(LocalTime initialTime) {
         this.currentTime = initialTime;

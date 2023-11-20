@@ -1,6 +1,6 @@
 package edu.ntnu.stud;
 
-import edu.ntnu.stud.TrainDeparture;
+import edu.ntnu.stud.Departures.TrainDeparture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalTime;

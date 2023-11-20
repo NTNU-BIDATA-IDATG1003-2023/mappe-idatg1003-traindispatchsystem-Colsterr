@@ -1,11 +1,5 @@
 package edu.ntnu.stud;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import edu.ntnu.stud.TrainDeparture;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 
 /*
 public class TrainDepartureRegisterTest {

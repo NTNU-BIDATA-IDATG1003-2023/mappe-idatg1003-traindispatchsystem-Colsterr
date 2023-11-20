@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+import edu.ntnu.stud.Clock.TimeUpdate;
 import org.junit.Before;
 import org.junit.Test;
 

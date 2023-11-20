@@ -1,26 +1,30 @@
-package edu.ntnu.stud;
+package edu.ntnu.stud.Interface;
+import edu.ntnu.stud.Clock.TimeUpdate;
+import edu.ntnu.stud.Departures.TrainDeparture;
+import edu.ntnu.stud.Departures.TrainDepartureRegister;
+import edu.ntnu.stud.PlatformAllocator.TrainPlatformAllocator;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class TrainDispatchApp {
-    public static void main(String[] args) {
-        List<TrainDeparture> departures = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
+public class UserInterface {
+    private final Scanner scanner;
+    private final TrainDepartureRegister register;
+    private final TimeUpdate timeUpdater;
 
-        TrainDepartureRegister register = new TrainDepartureRegister(); // Opprett en instans av register
-        TimeUpdate timeUpdater = new TimeUpdate(LocalTime.now());
+    public UserInterface(TrainDepartureRegister register, TimeUpdate timeUpdater) {
+        this.scanner = new Scanner(System.in);
+        this.register = register;
+        this.timeUpdater = timeUpdater;
+    }
 
+    public void showMenu() {
         while (true) {
-
             LocalTime currentTime = LocalTime.now();
-            System.out.print("\u001B[31m"); // ANSI escape code for red color
             System.out.println("Current Time: " + currentTime.format(DateTimeFormatter.ofPattern("HH:mm")));
-            System.out.print("\u001B[0m"); // Reset color to default
 
-            //Menu options
             System.out.println("Train Departure Menu:");
             System.out.println("1. Add Train Departure");
             System.out.println("2. Assign Platform to Departure");
@@ -38,11 +42,9 @@ public class TrainDispatchApp {
                 case 1:
                     addTrainDeparture(scanner, register);
                     break;
-
                 case 2:
                     assignPlatform(scanner, register);
                     break;
-
 
                 case 3:
                     displayAllDepartures(register);
@@ -63,12 +65,10 @@ public class TrainDispatchApp {
                 case 7:
                     findDeparturesByDestination(scanner, register);
                     break;
-
                 case 8:
+                    System.out.println("Exiting...");
                     scanner.close();
-                    System.exit(0);
-
-
+                    return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
@@ -173,19 +173,6 @@ public class TrainDispatchApp {
         }
     }
 
-
-    // Helper method to find a train by train number
-    private static TrainDeparture findTrainByTrainNumber(String trainNumber, List<TrainDeparture> departures) {
-        for (TrainDeparture departure : departures) {
-            if (departure.getTrainNumber().equals(trainNumber)) {
-                return departure;
-            }
-        }
-        return null;
-    }
-
-
-
     private static void updateCurrentTime(Scanner scanner, TimeUpdate timeUpdater) {
         timeUpdater.updateCurrentTime(scanner);
     }
@@ -206,3 +193,5 @@ public class TrainDispatchApp {
 
 
 }
+
+
