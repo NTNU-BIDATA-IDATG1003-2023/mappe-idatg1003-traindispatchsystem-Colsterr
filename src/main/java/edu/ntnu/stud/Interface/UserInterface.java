@@ -110,8 +110,10 @@ public class UserInterface {
         String destination = scanner.next();
 
         System.out.print("Enter delay (HH:mm) or press Enter for no delay: ");
-        String delayInput = scanner.next();
+        scanner.nextLine(); // Leser og ignorerer resten av den nåværende linjen (inkludert linjeskifttegnet)
+        String delayInput = scanner.nextLine(); //Leser neste linje, som vl være enten en tom streng (hvis brukeren trykker Enter) eller en ny verdi
         LocalTime delay = delayInput.isEmpty() ? null : LocalTime.parse(delayInput, DateTimeFormatter.ofPattern("HH:mm"));
+
 
         TrainDeparture newDeparture = new TrainDeparture(departureTime, track, line, trainNumber, destination, delay);
         register.addTrainDeparture(newDeparture);
