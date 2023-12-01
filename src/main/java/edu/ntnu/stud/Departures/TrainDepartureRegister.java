@@ -58,21 +58,6 @@ public class TrainDepartureRegister {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Removes departures from the register that are before a specified time.
-     *
-     * @param time The time to compare against for removing departures.
-     */
-
-    public void removeDeparturesBeforeTime(String time) {
-        Iterator<TrainDeparture> iterator = departures.iterator();
-        while (iterator.hasNext()) {
-            TrainDeparture departure = iterator.next();
-            if (departure.getDepartureTime().toString().compareTo(time) < 0) {
-                iterator.remove();
-            }
-        }
-    }
 
     /**
      * Gets a list of departures sorted by departure time.
@@ -93,9 +78,5 @@ public class TrainDepartureRegister {
      */
     public List<TrainDeparture> getDepartures() {
         return departures;
-    }
-
-    private boolean containsTrainWithNumber(String trainNumber) {
-        return departures.stream().anyMatch(departure -> departure.getTrainNumber().equals(trainNumber));
     }
 }

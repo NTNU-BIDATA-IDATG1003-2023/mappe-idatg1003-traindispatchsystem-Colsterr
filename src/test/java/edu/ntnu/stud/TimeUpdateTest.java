@@ -13,51 +13,64 @@ import edu.ntnu.stud.Clock.TimeUpdate;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The TimeUpdateTest class contains unit tests for the TimeUpdate class.
+ * It tests the functionality of updating the current time based on user input.
+ */
 public class TimeUpdateTest {
 
     private TimeUpdate timeUpdate;
     private LocalTime initialTime;
 
+    /**
+     * Sets up the environment for each test.
+     * Initializes a TimeUpdate object with a predefined initial time.
+     */
     @Before
     public void setUp() {
-        //Set up initial time and TimeUpdate instance for testing
+
         initialTime = LocalTime.of(12, 0);
         timeUpdate = new TimeUpdate(initialTime);
     }
 
+    /**
+     * Tests the updateCurrentTime method of TimeUpdate with valid input.
+     * Verifies that the current time is correctly updated.
+     */
     @Test
     public void testUpdateCurrentTime() {
-        // Prepare test inpt and set it as the System.in
         String input = "13:30\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
-        // Create a new scanner to read the test input
+
         Scanner scanner = new Scanner(System.in);
 
-        // Test the updateCurrentTime method
+
         timeUpdate.updateCurrentTime(scanner);
 
-        // Verify if the currentTime is updated as expected
+
         assertEquals("13:30:00", timeUpdate.currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
     }
 
+    /**
+     * Tests the updateCurrentTime method of TimeUpdate with invalid input.
+     * Verifies that an exception is thrown in case of invalid time format.
+     */
     @Test
     public void testUpdateCurrentTimeWithInvalidInput() {
-        // Prepare test input with an invalid time format
         String input = "invalid-time\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
-        // Create a new scanner to read the test input
         Scanner scanner = new Scanner(System.in);
 
-        // Test the updateCurrentTime method with invalid input
+
         try {
             timeUpdate.updateCurrentTime(scanner);
             fail("Expected DateTimeParseException, but no exception was thrown.");
         } catch (Exception e) {
-            // Verify that the exception is thrown
+
             assertNotNull(e);
         }
     }
