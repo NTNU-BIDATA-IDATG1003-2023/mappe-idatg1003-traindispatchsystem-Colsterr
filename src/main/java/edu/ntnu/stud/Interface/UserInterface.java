@@ -9,17 +9,32 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The UserInterface class provides a text-based user interface for interacting with
+ * the Train Dispatch System. It allows users to add, modify, and view train departures.
+ */
 public class UserInterface {
     private final Scanner scanner;
     private final TrainDepartureRegister register;
     private final TimeUpdate timeUpdater;
 
+    /**
+     * Constructs a new UserInterface instance with a given TrainDepartureRegister
+     * and TimeUpdate objects.
+     *
+     * @param register    The TrainDepartureRegister used for managing train departures.
+     * @param timeUpdater The TimeUpdate used for updating and managing the system time.
+     */
     public UserInterface(TrainDepartureRegister register, TimeUpdate timeUpdater) {
         this.scanner = new Scanner(System.in);
         this.register = register;
         this.timeUpdater = timeUpdater;
     }
 
+    /**
+     * Displays the main menu and handles user input to perform various actions such as
+     * adding departures, assigning platforms, and viewing departures.
+     */
     public void showMenu() {
         while (true) {
             LocalTime currentTime = LocalTime.now();
@@ -75,6 +90,13 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Finds and displays all train departures to a specified destination.
+     *
+     * @param scanner  Scanner to read user input.
+     * @param register TrainDepartureRegister to search for departures to the destination.
+     */
+
     private static void findDeparturesByDestination(Scanner scanner, TrainDepartureRegister register) {
         System.out.print("Enter destination to find departures: ");
         String destinationToFind = scanner.next();
@@ -91,7 +113,12 @@ public class UserInterface {
         }
     }
 
-
+    /**
+     * Handles the addition of a new train departure.
+     *
+     * @param scanner  Scanner to read user input.
+     * @param register TrainDepartureRegister to add the new departure to.
+     */
     private static void addTrainDeparture(Scanner scanner, TrainDepartureRegister register) {
         System.out.print("Enter departure time (HH:mm): ");
         String timeInput = scanner.next();
@@ -120,7 +147,12 @@ public class UserInterface {
         System.out.println("Train departure added successfully.");
     }
 
-
+    /**
+     * Assigns a platform to a specific train departure.
+     *
+     * @param scanner  Scanner to read user input.
+     * @param register TrainDepartureRegister to find the train departure.
+     */
     private static void assignPlatform(Scanner scanner, TrainDepartureRegister register) {
         System.out.print("Enter train number to assign a platform: ");
         String trainNumberToAssignPlatform = scanner.next();
@@ -136,6 +168,11 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Displays all train departures currently registered in the system.
+     *
+     * @param register The TrainDepartureRegister containing the departures to be displayed.
+     */
 
     private static void displayAllDepartures(TrainDepartureRegister register) {
         List<TrainDeparture> departures = register.getSortedDepartures();
@@ -149,6 +186,12 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Adds a delay to a specified train departure.
+     *
+     * @param scanner  Scanner to read user input.
+     * @param register TrainDepartureRegister to find and update the train departure.
+     */
 
     private static void addDelayToDeparture(Scanner scanner, TrainDepartureRegister register) {
         System.out.print("Enter train number to add delay: ");
@@ -175,10 +218,22 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Updates the current time in the system.
+     *
+     * @param scanner     Scanner to read user input.
+     * @param timeUpdater TimeUpdate object used to update the current time.
+     */
     private static void updateCurrentTime(Scanner scanner, TimeUpdate timeUpdater) {
         timeUpdater.updateCurrentTime(scanner);
     }
 
+    /**
+     * Finds and displays a train departure based on the train number provided by the user.
+     *
+     * @param scanner  Scanner to read user input.
+     * @param register TrainDepartureRegister to search for the train departure.
+     */
     private static void findTrainByTrainNumber(Scanner scanner, TrainDepartureRegister register) {
         System.out.print("Enter train number to find: ");
         String trainNumberToFind = scanner.next();
