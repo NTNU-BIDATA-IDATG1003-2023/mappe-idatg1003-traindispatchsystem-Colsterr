@@ -1,8 +1,8 @@
 package edu.ntnu.stud.Interface;
 import edu.ntnu.stud.Clock.TimeUpdate;
-import edu.ntnu.stud.Departures.TrainDeparture;
-import edu.ntnu.stud.Departures.TrainDepartureRegister;
-import edu.ntnu.stud.PlatformAllocator.TrainPlatformAllocator;
+import edu.ntnu.stud.TrainHandling.TrainDeparture;
+import edu.ntnu.stud.TrainHandling.TrainDepartureRegister;
+import edu.ntnu.stud.TrainHandling.TrainPlatformAllocator;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -91,28 +91,6 @@ public class UserInterface {
         }
     }
 
-    /**
-     * Finds and displays all train departures to a specified destination.
-     *
-     * @param scanner  Scanner to read user input.
-     * @param register TrainDepartureRegister to search for departures to the destination.
-     */
-
-    private static void findDeparturesByDestination(Scanner scanner, TrainDepartureRegister register) {
-        System.out.print("Enter destination to find departures: ");
-        String destinationToFind = scanner.next();
-
-        List<TrainDeparture> departuresByDestination = register.findDeparturesByDestination(destinationToFind);
-
-        if (!departuresByDestination.isEmpty()) {
-            System.out.println("Train departures to " + destinationToFind + ":");
-            for (TrainDeparture departure : departuresByDestination) {
-                System.out.println(departure.toString());
-            }
-        } else {
-            System.out.println("No departures to " + destinationToFind + " found.");
-        }
-    }
 
     /**
      * Handles the addition of a new train departure.
@@ -250,6 +228,28 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Finds and displays all train departures to a specified destination.
+     *
+     * @param scanner  Scanner to read user input.
+     * @param register TrainDepartureRegister to search for departures to the destination.
+     */
+
+    private static void findDeparturesByDestination(Scanner scanner, TrainDepartureRegister register) {
+        System.out.print("Enter destination to find departures: ");
+        String destinationToFind = scanner.next();
+
+        List<TrainDeparture> departuresByDestination = register.findDeparturesByDestination(destinationToFind);
+
+        if (!departuresByDestination.isEmpty()) {
+            System.out.println("Train departures to " + destinationToFind + ":");
+            for (TrainDeparture departure : departuresByDestination) {
+                System.out.println(departure.toString());
+            }
+        } else {
+            System.out.println("No departures to " + destinationToFind + " found.");
+        }
+    }
 
 }
 

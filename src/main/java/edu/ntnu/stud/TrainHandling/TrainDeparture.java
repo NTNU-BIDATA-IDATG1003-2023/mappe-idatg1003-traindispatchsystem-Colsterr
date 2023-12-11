@@ -1,4 +1,4 @@
-package edu.ntnu.stud.Departures;
+package edu.ntnu.stud.TrainHandling;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -34,6 +34,21 @@ public class TrainDeparture {
         this.trainNumber = trainNumber;
         this.destination = destination;
         this.delay = delay;
+    }
+
+    /**
+     * Adds a TrainDeparture object to the list of departures.
+     * Throws an IllegalArgumentException if a departure with the same train number already exists.
+     *
+     * @param departures    The list of train departures to which the new departure will be added.
+     * @param newDeparture  The new TrainDeparture object to add.
+     * @throws IllegalArgumentException If a departure with the same train number already exists in the list.
+     */
+    public static void addTrainDeparture(List<TrainDeparture> departures, TrainDeparture newDeparture) {
+        if (containsTrainWithNumber(departures, newDeparture.getTrainNumber())) {
+            throw new IllegalArgumentException("Train with the same train number already exists in the list.");
+        }
+        departures.add(newDeparture);
     }
 
     /**
@@ -107,20 +122,6 @@ public class TrainDeparture {
         return trainNumber;
     }
 
-    /**
-     * Adds a TrainDeparture object to the list of departures.
-     * Throws an IllegalArgumentException if a departure with the same train number already exists.
-     *
-     * @param departures    The list of train departures to which the new departure will be added.
-     * @param newDeparture  The new TrainDeparture object to add.
-     * @throws IllegalArgumentException If a departure with the same train number already exists in the list.
-     */
-    public static void addTrainDeparture(List<TrainDeparture> departures, TrainDeparture newDeparture) {
-        if (containsTrainWithNumber(departures, newDeparture.getTrainNumber())) {
-            throw new IllegalArgumentException("Train with the same train number already exists in the list.");
-        }
-        departures.add(newDeparture);
-    }
 
     /**
      * Checks if a train number is present in the list of departures.

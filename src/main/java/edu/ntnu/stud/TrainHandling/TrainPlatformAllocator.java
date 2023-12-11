@@ -1,5 +1,4 @@
-package edu.ntnu.stud.PlatformAllocator;
-import edu.ntnu.stud.Departures.TrainDeparture;
+package edu.ntnu.stud.TrainHandling;
 import java.util.List;
 
 /**

@@ -1,5 +1,4 @@
-package edu.ntnu.stud.DelayManager;
-import edu.ntnu.stud.Departures.TrainDeparture;
+package edu.ntnu.stud.TrainHandling;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -33,7 +32,6 @@ public class TrainDelayManager {
             throw new IllegalArgumentException("No departure found with the specified train number.");
         }
 
-        // Legg til forsinkelse på avgangen
         if (delay != null) {
             departureToAddDelay.addDelay(delay);
         }

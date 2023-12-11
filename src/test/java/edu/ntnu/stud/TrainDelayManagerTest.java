@@ -1,6 +1,6 @@
 package edu.ntnu.stud;
-import edu.ntnu.stud.DelayManager.TrainDelayManager;
-import edu.ntnu.stud.Departures.TrainDeparture;
+import edu.ntnu.stud.TrainHandling.TrainDelayManager;
+import edu.ntnu.stud.TrainHandling.TrainDeparture;
 import org.junit.Test;
 import java.time.LocalTime;
 import java.util.ArrayList;

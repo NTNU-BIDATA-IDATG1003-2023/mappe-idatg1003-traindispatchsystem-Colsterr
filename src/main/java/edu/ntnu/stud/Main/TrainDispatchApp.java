@@ -2,7 +2,7 @@ package edu.ntnu.stud.Main;
 
 import edu.ntnu.stud.Interface.UserInterface;
 import edu.ntnu.stud.Clock.TimeUpdate;
-import edu.ntnu.stud.Departures.TrainDepartureRegister;
+import edu.ntnu.stud.TrainHandling.TrainDepartureRegister;
 import java.time.LocalTime;
 
 /**
@@ -16,7 +16,6 @@ public class TrainDispatchApp {
      * It creates instances of TrainDepartureRegister and TimeUpdate,
      * and initializes the UserInterface to interact with the system.
      *
-     * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
         TrainDepartureRegister register = new TrainDepartureRegister();
