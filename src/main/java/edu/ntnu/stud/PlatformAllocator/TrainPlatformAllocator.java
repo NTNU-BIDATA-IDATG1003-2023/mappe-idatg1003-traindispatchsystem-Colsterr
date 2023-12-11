@@ -20,12 +20,11 @@ public class TrainPlatformAllocator {
      * @throws IllegalArgumentException if no departure with the specified train number is found.
      */
     public static void assignPlatform(List<TrainDeparture> departures, String trainNumber, String platform) {
-        // Søk etter avgangen basert på tognummer
         TrainDeparture departureToAssignPlatform = null;
         for (TrainDeparture departure : departures) {
             if (departure.getTrainNumber().equals(trainNumber)) {
                 departureToAssignPlatform = departure;
-                break; // Avslutt søket når vi har funnet den første avgangen med matchende tognummer
+                break;
             }
         }
 
@@ -33,7 +32,6 @@ public class TrainPlatformAllocator {
             throw new IllegalArgumentException("No departure found with the specified train number.");
         }
 
-        // Sett plattformen for avgangen
         departureToAssignPlatform.setPlatform(platform);
     }
 }

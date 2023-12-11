@@ -14,6 +14,7 @@ import java.util.Scanner;
  * the Train Dispatch System. It allows users to add, modify, and view train departures.
  */
 public class UserInterface {
+    private static final String TIME_FORMAT = "HH:mm";
     private final Scanner scanner;
     private final TrainDepartureRegister register;
     private final TimeUpdate timeUpdater;
@@ -38,7 +39,7 @@ public class UserInterface {
     public void showMenu() {
         while (true) {
             LocalTime currentTime = LocalTime.now();
-            System.out.println("Current Time: " + currentTime.format(DateTimeFormatter.ofPattern("HH:mm")));
+            System.out.println("Current Time: " + currentTime.format(DateTimeFormatter.ofPattern(TIME_FORMAT)));
 
             System.out.println("Train Departure Menu:");
             System.out.println("1. Add Train Departure");
@@ -120,9 +121,10 @@ public class UserInterface {
      * @param register TrainDepartureRegister to add the new departure to.
      */
     private static void addTrainDeparture(Scanner scanner, TrainDepartureRegister register) {
-        System.out.print("Enter departure time (HH:mm): ");
+        System.out.print("Enter departure time (" + TIME_FORMAT + "): ");
         String timeInput = scanner.next();
-        LocalTime departureTime = LocalTime.parse(timeInput, DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime departureTime = LocalTime.parse(timeInput, DateTimeFormatter.ofPattern(TIME_FORMAT));
+
 
         System.out.print("Enter track: ");
         int track = scanner.nextInt();
@@ -136,10 +138,11 @@ public class UserInterface {
         System.out.print("Enter destination: ");
         String destination = scanner.next();
 
-        System.out.print("Enter delay (HH:mm) or press Enter for no delay: ");
-        scanner.nextLine(); // Leser og ignorerer resten av den nåværende linjen (inkludert linjeskifttegnet)
-        String delayInput = scanner.nextLine(); //Leser neste linje, som vl være enten en tom streng (hvis brukeren trykker Enter) eller en ny verdi
-        LocalTime delay = delayInput.isEmpty() ? null : LocalTime.parse(delayInput, DateTimeFormatter.ofPattern("HH:mm"));
+        System.out.print("Enter delay (" + TIME_FORMAT + ") or press Enter for no delay: ");
+        scanner.nextLine(); // Consumes the rest of the line
+        String delayInput = scanner.nextLine();
+        LocalTime delay = delayInput.isEmpty() ? null : LocalTime.parse(delayInput, DateTimeFormatter.ofPattern(TIME_FORMAT));
+
 
 
         TrainDeparture newDeparture = new TrainDeparture(departureTime, track, line, trainNumber, destination, delay);
@@ -199,7 +202,7 @@ public class UserInterface {
 
         System.out.print("Enter delay (HH:mm) or press Enter for no delay: ");
         String delayInput = scanner.next();
-        LocalTime delayToAdd = delayInput.isEmpty() ? null : LocalTime.parse(delayInput, DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime delayToAdd = delayInput.isEmpty() ? null : LocalTime.parse(delayInput, DateTimeFormatter.ofPattern(TIME_FORMAT));
 
         TrainDeparture departure = register.findTrainByTrainNumber(trainNumberToAddDelay);
 

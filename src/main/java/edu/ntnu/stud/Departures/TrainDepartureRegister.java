@@ -1,8 +1,7 @@
 package edu.ntnu.stud.Departures;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 /**
  * The TrainDepartureRegister class maintains a list of all train departures.
@@ -10,7 +9,7 @@ import java.util.stream.Collectors;
  */
 
 public class TrainDepartureRegister {
-    private List<TrainDeparture> departures;
+    private final List<TrainDeparture> departures;
 
     /**
      * Constructs a new TrainDepartureRegister.
@@ -53,9 +52,13 @@ public class TrainDepartureRegister {
      */
 
     public List<TrainDeparture> findDeparturesByDestination(String destination) {
-        return departures.stream()
-                .filter(departure -> departure.getDestination().equalsIgnoreCase(destination))
-                .collect(Collectors.toList());
+        List<TrainDeparture> list = new ArrayList<>();
+        for (TrainDeparture departure : departures) {
+            if (departure.getDestination().equalsIgnoreCase(destination)) {
+                list.add(departure);
+            }
+        }
+        return list;
     }
 
 
